@@ -88,11 +88,11 @@ public class Hardware {
 
                 sleep(5000);
 
-
                 frontRightMotor.setPower(0);
                 frontLeftMotor.setPower(0);
                 backRightMotor.setPower(0);
                 backLeftMotor.setPower(0);
+
 
             }
         }
