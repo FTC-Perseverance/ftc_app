@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp
 public class FirstOpMode extends LinearOpMode {
 
-    //declare OpModde Members
+    //declare OpMode Members
     private ElapsedTime runtime = new ElapsedTime();
     private  DcMotor frontRightMotor = null;
     private  DcMotor frontLeftMotor = null;
@@ -68,8 +68,22 @@ public class FirstOpMode extends LinearOpMode {
                     frontLeftMotor.setPower(pivot + (-vertical - horizontal));
                     backRightMotor.setPower(pivot + (-vertical - horizontal));
                     backLeftMotor.setPower(pivot + (-vertical + horizontal));
-                }
 
-                    //
+                    //turn right
+                    if (gamepad1.right_trigger > 0) {
+                        frontRightMotor.setPower(-gamepad1.right_trigger);
+                        frontLeftMotor.setPower(gamepad1.right_trigger);
+                        backRightMotor.setPower(-gamepad1.right_trigger);
+                        backLeftMotor.setPower(gamepad1.right_trigger);
+                    }
+                    else if (gamepad1.left_trigger > 0) {
+                        frontRightMotor.setPower(gamepad1.left_trigger);
+                        frontLeftMotor.setPower(-gamepad1.left_trigger);
+                        backRightMotor.setPower(gamepad1.left_trigger);
+                        backLeftMotor.setPower(-gamepad1.left_trigger);
+
+                    }
+
+                }
         }
     }
