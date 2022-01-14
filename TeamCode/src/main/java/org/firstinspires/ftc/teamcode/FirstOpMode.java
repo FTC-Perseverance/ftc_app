@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -19,71 +20,95 @@ public class FirstOpMode extends LinearOpMode {
 
 
     @Override
-        public void runOpMode() {
-            telemetry.addData("Status", "Initialized");
-            telemetry.update();
+    public void runOpMode() {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
         backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
 
-            double vertical;
-            double horizontal;
-            double pivot;
-            vertical = -gamepad1.left_stick_y;
-            horizontal = gamepad1.left_stick_x;
-            pivot = gamepad1.right_stick_x;
+        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        double vertical;
+        double horizontal;
+        double platzhalter = gamepad1.right_trigger + gamepad1.left_trigger ;
+        vertical = -gamepad1.left_stick_y;
+        horizontal = gamepad1.left_stick_x;
+
+
+        //set motors to use power TeleOp tells it to use
+        frontRightMotor.setPower(-vertical + horizontal);
+        frontLeftMotor.setPower(-vertical - horizontal);
+        backRightMotor.setPower (-vertical - horizontal);
+        backLeftMotor.setPower(-vertical + horizontal);
 
 
 
 
         //initializes the HardwareMap variables
-            frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
-            //Wait for the game to start
-            waitForStart();
-            //run until the end of the match
-            while (opModeIsActive()) {
-                telemetry.addData("Status", "Running");
-                telemetry.update();
+        frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
+        //Wait for the game to start
+        waitForStart();
+        //run until the end of the match
+        while (opModeIsActive()) {
+            telemetry.addData("Status", "Running");
+            telemetry.update();
+            vertical = -gamepad1.left_stick_y;
+            horizontal = gamepad1.left_stick_x;
 
+            if (platzhalter == 0){
+                vertical = -gamepad1.left_stick_y;
+                horizontal = gamepad1.left_stick_x;
+                frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                frontRightMotor.setPower((-vertical + horizontal)/1.5);
+                frontLeftMotor.setPower((-vertical - horizontal)/1.5);
+                backRightMotor.setPower((-vertical - horizontal)/1.5);
+                backLeftMotor.setPower((-vertical + horizontal)/1.5);
+            }
 
-
-                frontRightMotor.setPower(1);
-                frontLeftMotor.setPower(1);
-                backRightMotor.setPower(1);
-                backLeftMotor.setPower(1);
-
-                sleep(5000);
-
+            //turn right
+            if (gamepad1.right_trigger > 0.5) {
+                frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                frontRightMotor.setPower(0.5);
+                frontLeftMotor.setPower(0.5);
+                backRightMotor.setPower(0.5);
+                backLeftMotor.setPower(0.5);
+            }
+            else if (gamepad1.right_trigger < 0.5) {
                 frontRightMotor.setPower(0);
                 frontLeftMotor.setPower(0);
                 backRightMotor.setPower(0);
                 backLeftMotor.setPower(0);
             }
-            while (opModeIsActive()){
 
-                    //set motors to use power TeleOp tells it to use
-                    frontRightMotor.setPower(pivot + (-vertical + horizontal));
-                    frontLeftMotor.setPower(pivot + (-vertical - horizontal));
-                    backRightMotor.setPower(pivot + (-vertical - horizontal));
-                    backLeftMotor.setPower(pivot + (-vertical + horizontal));
+            if (gamepad1.left_trigger > 0.5) {
+                frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                frontRightMotor.setPower(0.5);
+                frontLeftMotor.setPower(0.5);
+                backRightMotor.setPower(0.5);
+                backLeftMotor.setPower(0.5);
+            }
 
-                    //turn right
-                    if (gamepad1.right_trigger > 0) {
-                        frontRightMotor.setPower(-gamepad1.right_trigger);
-                        frontLeftMotor.setPower(gamepad1.right_trigger);
-                        backRightMotor.setPower(-gamepad1.right_trigger);
-                        backLeftMotor.setPower(gamepad1.right_trigger);
-                    }
-                    else if (gamepad1.left_trigger > 0) {
-                        frontRightMotor.setPower(gamepad1.left_trigger);
-                        frontLeftMotor.setPower(-gamepad1.left_trigger);
-                        backRightMotor.setPower(gamepad1.left_trigger);
-                        backLeftMotor.setPower(-gamepad1.left_trigger);
-
-                    }
-
-                }
+            else if (gamepad1.left_trigger < 0.4) {
+                frontRightMotor.setPower(0);
+                frontLeftMotor.setPower(0);
+                backRightMotor.setPower(0);
+                backLeftMotor.setPower(0);
+            }
         }
     }
+}
