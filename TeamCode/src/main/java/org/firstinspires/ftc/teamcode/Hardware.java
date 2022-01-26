@@ -23,6 +23,7 @@ public class Hardware {
     public Hardware(HardwareMap hwMap) {
         initialize(hwMap);
 
+
     }
 
     private void initialize(HardwareMap hwMap) {
@@ -47,8 +48,8 @@ public class Hardware {
         backRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER););
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
@@ -65,36 +66,5 @@ public class Hardware {
         backLeftMotor.setPower(0);
 
 
-    }
-
-    //tying to write something xD
-    public class test extends LinearOpMode {
-
-        @Override
-        public void runOpMode() {
-            telemetry.addData("Status", "Initialized");
-            telemetry.update();
-            //Wait for the game to start
-            waitForStart();
-            //run until the end of the match
-            while (opModeIsActive()) {
-                telemetry.addData("Status", "Running");
-                telemetry.update();
-
-                frontRightMotor.setPower(1);
-                frontLeftMotor.setPower(1);
-                backRightMotor.setPower(1);
-                backLeftMotor.setPower(1);
-
-                sleep(5000);
-
-                frontRightMotor.setPower(0);
-                frontLeftMotor.setPower(0);
-                backRightMotor.setPower(0);
-                backLeftMotor.setPower(0);
-
-
-            }
-        }
     }
 }
