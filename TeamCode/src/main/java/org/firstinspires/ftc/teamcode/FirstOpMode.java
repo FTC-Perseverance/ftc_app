@@ -15,6 +15,8 @@ public class FirstOpMode extends LinearOpMode {
     private  DcMotor frontLeftMotor = null;
     private DcMotor backRightMotor = null;
     private DcMotor backLeftMotor = null;
+ //   private DcMotor LinearLiftingMotor = null;
+
 
 
     @Override
@@ -22,15 +24,18 @@ public class FirstOpMode extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        //initializes the HardwareMap variables
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
         backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
+   //     LinearLiftingMotor = hardwareMap.get(DcMotor.class, "LinearLiftingMotor");
 
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+     //   LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         double vertical;
         double horizontal;
@@ -46,10 +51,6 @@ public class FirstOpMode extends LinearOpMode {
         backLeftMotor.setPower(-vertical + horizontal);
 
 
-
-
-        //initializes the HardwareMap variables
-        frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
         //Wait for the game to start
         waitForStart();
         //run until the end of the match
@@ -76,10 +77,10 @@ public class FirstOpMode extends LinearOpMode {
                 frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                frontRightMotor.setPower(0.5);
-                frontLeftMotor.setPower(0.5);
-                backRightMotor.setPower(0.5);
-                backLeftMotor.setPower(0.5);
+                frontRightMotor.setPower(0.75);
+                frontLeftMotor.setPower(0.75);
+                backRightMotor.setPower(0.75);
+                backLeftMotor.setPower(0.75);
             }
             else if (gamepad1.right_trigger < 0.5) {
                 frontRightMotor.setPower(0);
@@ -93,10 +94,10 @@ public class FirstOpMode extends LinearOpMode {
                 frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                frontRightMotor.setPower(0.5);
-                frontLeftMotor.setPower(0.5);
-                backRightMotor.setPower(0.5);
-                backLeftMotor.setPower(0.5);
+                frontRightMotor.setPower(0.75);
+                frontLeftMotor.setPower(0.75);
+                backRightMotor.setPower(0.75);
+                backLeftMotor.setPower(0.75);
             }
 
             else if (gamepad1.left_trigger < 0.4) {
@@ -104,6 +105,13 @@ public class FirstOpMode extends LinearOpMode {
                 frontLeftMotor.setPower(0);
                 backRightMotor.setPower(0);
                 backLeftMotor.setPower(0);
+            }
+       //     if (gamepad1...... > 0.5){
+       //         LinearLiftingMotor.setPower(0.75);
+       //         }
+        //    else if(gamepad1....... < 0.4){
+       //         LinearLiftingMotor.setPower(0);
+
             }
         }
     }

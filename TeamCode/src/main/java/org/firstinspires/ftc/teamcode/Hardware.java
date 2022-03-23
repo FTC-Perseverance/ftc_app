@@ -23,7 +23,6 @@ public class Hardware {
     public Hardware(HardwareMap hwMap) {
         initialize(hwMap);
 
-
     }
 
     private void initialize(HardwareMap hwMap) {
@@ -39,7 +38,7 @@ public class Hardware {
         //Set Up Motor Direction
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Set Motor Mode
@@ -48,8 +47,8 @@ public class Hardware {
         backRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
@@ -67,4 +66,5 @@ public class Hardware {
 
 
     }
-}
+    }
+
