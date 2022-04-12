@@ -15,7 +15,7 @@ public class FirstOpMode extends LinearOpMode {
     private  DcMotor frontLeftMotor = null;
     private DcMotor backRightMotor = null;
     private DcMotor backLeftMotor = null;
-    //   private DcMotor LinearLiftingMotor = null;
+    private  DcMotor LinearLiftingMotor = null;
 
 
 
@@ -29,13 +29,14 @@ public class FirstOpMode extends LinearOpMode {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
         backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
-        //     LinearLiftingMotor = hardwareMap.get(DcMotor.class, "LinearLiftingMotor");
+        LinearLiftingMotor =hardwareMap.get(DcMotor.class, "LinearLiftingMotor");
+
 
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //   LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         double vertical;
         double horizontal;
@@ -57,6 +58,7 @@ public class FirstOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             telemetry.addData("Status", "Running");
             telemetry.update();
+            if ()
 
             if (platzhalter == 0){
                 vertical = -gamepad1.left_stick_y;
@@ -106,11 +108,17 @@ public class FirstOpMode extends LinearOpMode {
                 backRightMotor.setPower(0);
                 backLeftMotor.setPower(0);
             }
-            //     if (gamepad1...... > 0.5){
-            //         LinearLiftingMotor.setPower(0.75);
-            //         }
-            //    else if(gamepad1....... < 0.4){
-            //         LinearLiftingMotor.setPower(0);
+                if (gamepad1.right_stick_x > 0.5){
+                    LinearLiftingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                    LinearLiftingMotor.setPower(0.75);
+                   }
+               if(gamepad1.right_stick_x< 0.4 && gamepad1.right_stick_x> -0.4) {
+                   LinearLiftingMotor.setPower(0);
+               }
+               if (gamepad1.right_stick_x<-0.4){
+                   LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                   LinearLiftingMotor.setPower(0.75);
+               }
 
         }
     }
