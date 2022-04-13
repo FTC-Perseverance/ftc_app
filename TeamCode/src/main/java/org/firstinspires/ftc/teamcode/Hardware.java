@@ -16,6 +16,9 @@ public class Hardware {
     public DcMotor backRightMotor = null;
     public DcMotor backLeftMotor = null;
     public DcMotor LinearLiftingMotor = null;
+    public DcMotor ExtentioMotorUp = null;
+    public DcMotor ExtentionMotorDown = null;
+
     //Additional Variables
     HardwareMap hardwareMap = null;
     public ElapsedTime runtime = new ElapsedTime();
@@ -35,7 +38,8 @@ public class Hardware {
         backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
         backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
         LinearLiftingMotor = hardwareMap.get(DcMotor.class, "LLM");
-
+        ExtentionMotorUp = hardwareMap.get(DcMotor.class, "EMU");
+        ExtentionMotorDown = hardwareMap.get(DcMotor.class, "EMD");
 
         //Set Up Motor Direction
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -43,19 +47,23 @@ public class Hardware {
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         LinearLiftingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        ExtentionMotorUp.setDirection(DcMotorSimple.Direction.REVERSE);
+        ExtentionMotorDown.setDirection(DcMotorSimple.Direction.REVERSE);
         //Set Motor Mode
         frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LinearLiftingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ExtentionMotorUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ExtentionMotorDown.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinearLiftingMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        ExtentionMotorUp.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ExtentionMotorDown.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //set zero power for Motors
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -63,6 +71,8 @@ public class Hardware {
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LinearLiftingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ExtentionMotorUp.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ExtentionMotorDown.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //set motors to use no power
         frontRightMotor.setPower(0);
@@ -70,8 +80,8 @@ public class Hardware {
         backRightMotor.setPower(0);
         backLeftMotor.setPower(0);
         LinearLiftingMotor.setPower(0);
-
-
+        ExtentionMotorUp.setPower(0);
+        ExtentionMotorDown.setPower(0);
     }
     }
 

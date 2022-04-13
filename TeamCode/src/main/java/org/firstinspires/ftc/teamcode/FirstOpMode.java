@@ -108,14 +108,14 @@ public class FirstOpMode extends LinearOpMode {
                 backRightMotor.setPower(0);
                 backLeftMotor.setPower(0);
             }
-                if (gamepad1.right_stick_x > 0.5){
+            if (gamepad1.right_stick_x > 0.5){
                     LinearLiftingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                     LinearLiftingMotor.setPower(0.75);
                    }
-               if(gamepad1.right_stick_x< 0.4 && gamepad1.right_stick_x> -0.4) {
+            if(gamepad1.right_stick_x< 0.4 && gamepad1.right_stick_x> -0.4) {
                    LinearLiftingMotor.setPower(0);
                }
-               if (gamepad1.right_stick_x<-0.4){
+            if (gamepad1.right_stick_x<-0.4){
                    LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                    LinearLiftingMotor.setPower(0.75);
                }
