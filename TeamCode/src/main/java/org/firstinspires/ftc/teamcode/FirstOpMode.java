@@ -58,7 +58,7 @@ public class FirstOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             telemetry.addData("Status", "Running");
             telemetry.update();
-            if ()
+
 
             if (platzhalter == 0){
                 vertical = -gamepad1.left_stick_y;
