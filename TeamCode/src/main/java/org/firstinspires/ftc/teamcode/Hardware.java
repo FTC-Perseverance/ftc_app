@@ -16,7 +16,7 @@ public class Hardware {
     public DcMotor backRightMotor = null;
     public DcMotor backLeftMotor = null;
     public DcMotor LinearLiftingMotor = null;
-    public DcMotor ExtentioMotorUp = null;
+    public DcMotor ExtentionMotorUp = null;
     public DcMotor ExtentionMotorDown = null;
 
     //Additional Variables
@@ -86,4 +86,3 @@ public class Hardware {
     }
 
 
-}

@@ -16,6 +16,8 @@ public class FirstOpMode extends LinearOpMode {
     private DcMotor backRightMotor = null;
     private DcMotor backLeftMotor = null;
     private  DcMotor LinearLiftingMotor = null;
+    private DcMotor ExtentionMotorUp   = null;
+    private DcMotor ExtentionMotorDown = null;
 
 
 
@@ -90,7 +92,7 @@ public class FirstOpMode extends LinearOpMode {
                 backRightMotor.setPower(0);
                 backLeftMotor.setPower(0);
             }
-
+            //turn left
             if (gamepad1.left_trigger > 0.5) {
                 frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -101,24 +103,28 @@ public class FirstOpMode extends LinearOpMode {
                 backRightMotor.setPower(0.75);
                 backLeftMotor.setPower(0.75);
             }
-
+            //prevent two commands happen at the same time
             else if (gamepad1.left_trigger < 0.4) {
                 frontRightMotor.setPower(0);
                 frontLeftMotor.setPower(0);
                 backRightMotor.setPower(0);
                 backLeftMotor.setPower(0);
             }
+            //lifting Motors
             if (gamepad1.right_stick_x > 0.5){
                     LinearLiftingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                     LinearLiftingMotor.setPower(0.75);
                    }
-            if(gamepad1.right_stick_x< 0.4 && gamepad1.right_stick_x> -0.4) {
+            if(gamepad1.right_stick_x< 0.4 && gamepad1.right_stick_y> 0.4) {
                    LinearLiftingMotor.setPower(0);
                }
-            if (gamepad1.right_stick_x<-0.4){
+            if (gamepad1.right_stick_y< 0.4){
                    LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                    LinearLiftingMotor.setPower(0.75);
                }
+            if (gamepad1.x<0.5){
+
+            }
 
         }
     }
