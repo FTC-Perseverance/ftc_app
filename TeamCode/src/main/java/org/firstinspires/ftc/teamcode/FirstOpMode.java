@@ -11,14 +11,13 @@ public class FirstOpMode extends LinearOpMode {
 
     //declare OpMode Members
     private ElapsedTime runtime = new ElapsedTime();
-    private  DcMotor frontRightMotor = null;
-    private  DcMotor frontLeftMotor = null;
+    private DcMotor frontRightMotor = null;
+    private DcMotor frontLeftMotor = null;
     private DcMotor backRightMotor = null;
     private DcMotor backLeftMotor = null;
-    private  DcMotor LinearLiftingMotor = null;
-    private DcMotor ExtentionMotorUp   = null;
+    private DcMotor LinearLiftingMotor = null;
+    private DcMotor ExtentionMotorUp = null;
     private DcMotor ExtentionMotorDown = null;
-
 
 
     @Override
@@ -31,7 +30,9 @@ public class FirstOpMode extends LinearOpMode {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
         backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
-        LinearLiftingMotor =hardwareMap.get(DcMotor.class, "LinearLiftingMotor");
+        LinearLiftingMotor = hardwareMap.get(DcMotor.class, "LinearLiftingMotor");
+        ExtentionMotorDown = hardwareMap.get(DcMotor.class, "ExtentionMotorUp");
+        ExtentionMotorUp = hardwareMap.get(DcMotor.class, "ExtentionMotorDown");
 
 
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -39,10 +40,12 @@ public class FirstOpMode extends LinearOpMode {
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        ExtentionMotorUp.setDirection(DcMotorSimple.Direction.FORWARD);
+        ExtentionMotorDown.setDirection(DcMotorSimple.Direction.FORWARD);
 
         double vertical;
         double horizontal;
-        double platzhalter = gamepad1.right_trigger + gamepad1.left_trigger ;
+        double platzhalter = gamepad1.right_trigger + gamepad1.left_trigger;
         vertical = -gamepad1.left_stick_y;
         horizontal = gamepad1.left_stick_x;
 
@@ -50,7 +53,7 @@ public class FirstOpMode extends LinearOpMode {
         //set motors to use power TeleOp tells it to use
         frontRightMotor.setPower(-vertical + horizontal);
         frontLeftMotor.setPower(-vertical - horizontal);
-        backRightMotor.setPower (-vertical - horizontal);
+        backRightMotor.setPower(-vertical - horizontal);
         backLeftMotor.setPower(-vertical + horizontal);
 
 
@@ -62,17 +65,17 @@ public class FirstOpMode extends LinearOpMode {
             telemetry.update();
 
 
-            if (platzhalter == 0){
+            if (platzhalter == 0) {
                 vertical = -gamepad1.left_stick_y;
                 horizontal = gamepad1.left_stick_x;
                 frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                 backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                frontRightMotor.setPower((-vertical + horizontal)/0.5);
-                frontLeftMotor.setPower((-vertical - horizontal)/0.5);
-                backRightMotor.setPower((-vertical - horizontal)/0.5);
-                backLeftMotor.setPower((-vertical + horizontal)/0.5);
+                frontRightMotor.setPower((-vertical + horizontal) / 0.5);
+                frontLeftMotor.setPower((-vertical - horizontal) / 0.5);
+                backRightMotor.setPower((-vertical - horizontal) / 0.5);
+                backLeftMotor.setPower((-vertical + horizontal) / 0.5);
             }
 
             //turn right
@@ -85,8 +88,7 @@ public class FirstOpMode extends LinearOpMode {
                 frontLeftMotor.setPower(0.75);
                 backRightMotor.setPower(0.75);
                 backLeftMotor.setPower(0.75);
-            }
-            else if (gamepad1.right_trigger < 0.5) {
+            } else if (gamepad1.right_trigger < 0.5) {
                 frontRightMotor.setPower(0);
                 frontLeftMotor.setPower(0);
                 backRightMotor.setPower(0);
@@ -111,18 +113,36 @@ public class FirstOpMode extends LinearOpMode {
                 backLeftMotor.setPower(0);
             }
             //lifting Motors
-            if (gamepad1.right_stick_x > 0.5){
-                    LinearLiftingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                    LinearLiftingMotor.setPower(0.75);
-                   }
-            if(gamepad1.right_stick_x< 0.4 && gamepad1.right_stick_y> 0.4) {
-                   LinearLiftingMotor.setPower(0);
-               }
-            if (gamepad1.right_stick_y< 0.4){
-                   LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                   LinearLiftingMotor.setPower(0.75);
-               }
-            if (gamepad1.x<0.5){
+            if (gamepad1.right_stick_x > 0.5) {
+                LinearLiftingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                LinearLiftingMotor.setPower(0.75);
+            }
+            if (gamepad1.right_stick_x < 0.4 && gamepad1.right_stick_y > 0.4) {
+                LinearLiftingMotor.setPower(0);
+            }
+            if (gamepad1.right_stick_y < 0.4) {
+                LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                LinearLiftingMotor.setPower(0.75);
+            }
+            if (gamepad1.x < 0.5) {
+                ExtentionMotorDown.setDirection(DcMotorSimple.Direction.FORWARD);
+                ExtentionMotorUp.setDirection(DcMotorSimple.Direction.FORWARD);
+                ExtentionMotorDown.setPower(2);
+                ExtentionMotorUp.setPower(2);
+            } else if (gamepad1.x > 0.5) {
+                ExtentionMotorUp.setPower(0);
+                ExtentionMotorDown.setPower(0);
+
+            }
+            if (gamepad1.y < 0.5) {
+                ExtentionMotorDown.setDirection((DcMotorSimple.Direction.REVERSE));
+                ExtentionMotorUp.setDirection(DcMotorSimple.Direction.REVERSE);
+                ExtentionMotorDown.setPower(2);
+                ExtentionMotorUp.setPower(2);
+            } else if (gamepad1.y > 0.5) {
+                ExtentionMotorUp.setPower(0);
+                ExtentionMotorDown.setPower(0);
+
 
             }
 
