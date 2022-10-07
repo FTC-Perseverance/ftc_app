@@ -83,6 +83,6 @@ public class Hardware {
         ExtentionMotorUp.setPower(0);
         ExtentionMotorDown.setPower(0);
     }
-    }
+}
 
 
