@@ -8,6 +8,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 
 public class Hardware {
     //Create Motors
@@ -18,6 +24,7 @@ public class Hardware {
     public DcMotor LinearLiftingMotor = null;
     public DcMotor ExtentionMotorUp = null;
     public DcMotor ExtentionMotorDown = null;
+    public DistanceSensor DS1 = null;
 
     //Additional Variables
     HardwareMap hardwareMap = null;
@@ -31,7 +38,6 @@ public class Hardware {
 
     private void initialize(HardwareMap hwMap) {
         hardwareMap = hwMap;
-
         //Connect Motor
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
@@ -40,6 +46,8 @@ public class Hardware {
         LinearLiftingMotor = hardwareMap.get(DcMotor.class, "LLM");
         ExtentionMotorUp = hardwareMap.get(DcMotor.class, "EMU");
         ExtentionMotorDown = hardwareMap.get(DcMotor.class, "EMD");
+        DS1  = hardwareMap.get(DistanceSensor.class, "DS1");
+
 
         //Set Up Motor Direction
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -49,6 +57,8 @@ public class Hardware {
         LinearLiftingMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         ExtentionMotorUp.setDirection(DcMotorSimple.Direction.REVERSE);
         ExtentionMotorDown.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
         //Set Motor Mode
         frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -83,6 +93,6 @@ public class Hardware {
         ExtentionMotorUp.setPower(0);
         ExtentionMotorDown.setPower(0);
     }
-}
+    }
 
 
