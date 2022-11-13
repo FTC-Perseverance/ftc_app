@@ -345,12 +345,12 @@ public class FirstOpMode extends LinearOpMode {
                         frontLeftMotor.setPower(1);
                         backRightMotor.setPower(1);
                         backLeftMotor.setPower(1);
-                        sleep(100);
+                        sleep(50);
                         frontRightMotor.setPower(0);
                         frontLeftMotor.setPower(0);
                         backRightMotor.setPower(0);
                         backLeftMotor.setPower(0);
-                        while(DS1Value > 20) {
+                        DS1Value = DS1.getDistance(DistanceUnit.CM);
                             frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                             frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                             backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -359,13 +359,15 @@ public class FirstOpMode extends LinearOpMode {
                             frontLeftMotor.setPower(0.1);
                             backRightMotor.setPower(0.1);
                             backLeftMotor.setPower(0.1);
+                        while(DS1Value > 20) {
+                            DS1Value = DS1.getDistance(DistanceUnit.CM);
                         }
-                            frontRightMotor.setPower(0);
+                        frontRightMotor.setPower(0);
                             frontLeftMotor.setPower(0);
                             backRightMotor.setPower(0);
                             backLeftMotor.setPower(0);
 
-
+                        sleep(5000);
                         DistanceSpace = 0;
                     }
 
