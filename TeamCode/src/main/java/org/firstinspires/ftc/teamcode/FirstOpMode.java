@@ -26,6 +26,8 @@ public class FirstOpMode extends LinearOpMode {
     private DcMotor ExtentionMotorUp = null;
     private DcMotor ExtentionMotorDown = null;
     private DistanceSensor DS1 = null;
+    private Servo claw2 =null;
+    private Servo claw1 = null;
 
 
     @Override
@@ -42,6 +44,8 @@ public class FirstOpMode extends LinearOpMode {
         ExtentionMotorUp = hardwareMap.get(DcMotor.class,"ExtentionMotorUp");
         ExtentionMotorDown = hardwareMap.get(DcMotor.class,"ExtentionMotorDown");
         DS1 = hardwareMap.get(DistanceSensor.class,"DS1");
+        claw1 = hwMap.servo.get("claw1");
+        claw2 = hwMap.servo.get("claw2");
 
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -59,13 +63,19 @@ public class FirstOpMode extends LinearOpMode {
         int GradSpace = 0;
         double j=1;
         double k = 1.1;
-        double p = 0;
+        double p = 0.3;
         double m = 0;
         double DS1Value = 0;
-        double l = 0.15;
+        double l = 0.5;
         long time;
         long time2;
         int GradSpace2 = 0;
+        double CLAW2_HOME = 0;
+        double CLAW1_HOME = 0;
+        double CLAW2_MIN_RANGE = 0.3;
+        double CLAW1_MIN_RANGE = 0.3;
+        double CLAW2_MAX_RANGE = 0.6;
+        double CLAW1_MAX_RANGE = 0.6;
 
         double platzhalter = gamepad1.right_trigger + gamepad1.left_trigger;
         double y = -gamepad1.left_stick_y; // Remember, this is reversed!
@@ -479,12 +489,21 @@ public class FirstOpMode extends LinearOpMode {
             if(gamepad1.x == true) {
 
                 if(GradSpace2 == 1){
-                    ExtentionMotorUp.setDirection(DcMotorSimple.Direction.FORWARD);
+                    /*ExtentionMotorUp.setDirection(DcMotorSimple.Direction.FORWARD);
                     ExtentionMotorUp.setPower(0.5);
                     GradSpace = 0;
+
+                     */
+                    claw2.setPosition(CLAW2_MIN_RANGE);
+                    claw1.setPosition(CLAW1_MIN_RANGE);
+                    GradSpace = 0;
+
                 }
                 if(GradSpace2 == 0){
-                    ExtentionMotorUp.setDirection(DcMotorSimple.Direction.REVERSE);
+                    claw2.setPosition(CLAW2_MAX_RANGE);
+                    claw1.setPosition(CLAW1_MAX_RANGE);
+                }
+                   /* ExtentionMotorUp.setDirection(DcMotorSimple.Direction.REVERSE);
                     ExtentionMotorUp.setPower(0.5);
                     time = System.currentTimeMillis();
                     time2 = System.currentTimeMillis();
@@ -492,7 +511,7 @@ public class FirstOpMode extends LinearOpMode {
                         time2 = System.currentTimeMillis();
 
                         if (platzhalter == 0) {
-                            y = -gamepad1.left_stick_y; // Remember, this is reversed!
+                            y = -gamepad1.left_stick_y; // Remember, this is reversed! down is -1 up is 1
                             x = gamepad1.left_stick_x;
                             if(x<0.2&&x>-0.2){
                                 x=0;
@@ -551,7 +570,7 @@ public class FirstOpMode extends LinearOpMode {
                     ExtentionMotorUp.setPower(0);
                     GradSpace = 1;
                 }
-
+                */
             }
 
             while(LiftingSpace2==1){
@@ -594,56 +613,60 @@ public class FirstOpMode extends LinearOpMode {
                         backLeftMotor.setPower(0);
                         if(DS1Value>12.65){
 
-                            while(DS1Value>11.65){
-                                frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                            while(DS1Value>12){
+                                frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                                 frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                                backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                                backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                                 backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                                 frontRightMotor.setPower(1);
                                 frontLeftMotor.setPower(1);
                                 backRightMotor.setPower(1);
                                 backLeftMotor.setPower(1);
                             }
-                            frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                            frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                             frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                            backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                            backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                             backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                             frontRightMotor.setPower(1);
                             frontLeftMotor.setPower(1);
                             backRightMotor.setPower(1);
                             backLeftMotor.setPower(1);
-                            sleep(50);
+                            sleep(30);
                             frontRightMotor.setPower(0);
                             frontLeftMotor.setPower(0);
                             backRightMotor.setPower(0);
                             backLeftMotor.setPower(0);
                         }
-                        if(DS1Value<13.65){
+                        if(DS1Value<13.1){
                             while(DS1Value<12.65){
-                                frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                                frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                                 frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-                                backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                                backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                                 backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                                 frontRightMotor.setPower(1);
                                 frontLeftMotor.setPower(1);
                                 backRightMotor.setPower(1);
                                 backLeftMotor.setPower(1);
                             }
-                            frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                            frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                             frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                            backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+                            backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                             backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
                             frontRightMotor.setPower(1);
                             frontLeftMotor.setPower(1);
                             backRightMotor.setPower(1);
                             backLeftMotor.setPower(1);
-                            sleep(50);
+                            sleep(30);
                             frontRightMotor.setPower(0);
                             frontLeftMotor.setPower(0);
                             backRightMotor.setPower(0);
                             backLeftMotor.setPower(0);
                         }
-                        sleep(5000);
+                        LinearLiftingMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+                        LinearLiftingMotor.setPower(1);
+                        sleep(2000);
+                        LinearLiftingMotor.setPower(0);
+
                         DistanceSpace = 0;
                     }
 

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Hardware {
     //Create Motors
@@ -25,10 +26,19 @@ public class Hardware {
     public DcMotor ExtentionMotorUp = null;
     public DcMotor ExtentionMotorDown = null;
     public DistanceSensor DS1 = null;
+    public DistanceSensor DS2 = null;
+    public Servo claw1 = null;
+    public Servo claw2 = null;
 
     //Additional Variables
     HardwareMap hardwareMap = null;
     public ElapsedTime runtime = new ElapsedTime();
+    public final static double CLAW2_HOME = 0;
+    public final static double CLAW1_HOME = 0;
+    public final static double CLAW2_MIN_RANGE = 0;
+    public final static double CLAW1_MIN_RANGE = 0;
+    public final static double CLAW2_MAX_RANGE = 3;
+    public final static double CLAW1_MAX_RANGE = 3;
 
     public Hardware(HardwareMap hwMap) {
         initialize(hwMap);
@@ -47,6 +57,12 @@ public class Hardware {
         ExtentionMotorUp = hardwareMap.get(DcMotor.class, "EMU");
         ExtentionMotorDown = hardwareMap.get(DcMotor.class, "EMD");
         DS1  = hardwareMap.get(DistanceSensor.class, "DS1");
+        DS2 = hardwareMap.get(DistanceSensor.class, "DS2");
+        claw1 = hardwareMap.get(Servo.class, "claw1");
+        claw2 = hardwareMap.get(Servo.class, "claw2");
+
+        claw1 = hwMap.servo.get("claw1");
+        claw2 = hwMap.servo.get("claw2");
 
 
         //Set Up Motor Direction
