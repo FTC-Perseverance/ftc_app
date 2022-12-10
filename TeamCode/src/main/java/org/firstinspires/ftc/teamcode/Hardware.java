@@ -35,10 +35,10 @@ public class Hardware {
     public ElapsedTime runtime = new ElapsedTime();
     public final static double CLAW2_HOME = 0;
     public final static double CLAW1_HOME = 0;
-    public final static double CLAW2_MIN_RANGE = 0;
-    public final static double CLAW1_MIN_RANGE = 0;
-    public final static double CLAW2_MAX_RANGE = 3;
-    public final static double CLAW1_MAX_RANGE = 3;
+    public final static double CLAW2_MIN_RANGE = 0.3;
+    public final static double CLAW1_MIN_RANGE = 0.3;
+    public final static double CLAW2_MAX_RANGE = 0.6;
+    public final static double CLAW1_MAX_RANGE = 0.6;
 
     public Hardware(HardwareMap hwMap) {
         initialize(hwMap);
@@ -61,8 +61,7 @@ public class Hardware {
         claw1 = hardwareMap.get(Servo.class, "claw1");
         claw2 = hardwareMap.get(Servo.class, "claw2");
 
-        claw1 = hwMap.servo.get("claw1");
-        claw2 = hwMap.servo.get("claw2");
+
 
 
         //Set Up Motor Direction

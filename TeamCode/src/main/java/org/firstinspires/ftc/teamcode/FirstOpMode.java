@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -26,7 +27,7 @@ public class FirstOpMode extends LinearOpMode {
     private DcMotor ExtentionMotorUp = null;
     private DcMotor ExtentionMotorDown = null;
     private DistanceSensor DS1 = null;
-    private Servo claw2 =null;
+    private Servo claw2 = null;
     private Servo claw1 = null;
 
 
@@ -44,8 +45,8 @@ public class FirstOpMode extends LinearOpMode {
         ExtentionMotorUp = hardwareMap.get(DcMotor.class,"ExtentionMotorUp");
         ExtentionMotorDown = hardwareMap.get(DcMotor.class,"ExtentionMotorDown");
         DS1 = hardwareMap.get(DistanceSensor.class,"DS1");
-        claw1 = hwMap.servo.get("claw1");
-        claw2 = hwMap.servo.get("claw2");
+        claw1 = hardwareMap.servo.get("claw1");
+        claw2 = hardwareMap.servo.get("claw2");
 
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
